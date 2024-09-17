@@ -5,7 +5,7 @@ CREATE USER 'app_user'@'localhost' IDENTIFIED BY 'password';
 
 CREATE ROLE 'app_role';
 
-GRANT ALL ON user_db.* TO 'app_role';
+GRANT SELECT, INSERT, UPDATE, DELETE ON user_db.* TO 'app_role';
 
 GRANT 'app_role' TO 'app_user'@'localhost';
 
