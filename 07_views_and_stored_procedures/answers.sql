@@ -34,7 +34,7 @@ SELECT * FROM project_resources;
 
 -- Exercise 3: Stored Procedures
 -- A stored procedure to increase a employee's salary
-DELIMITER $$$
+DELIMITER $$
 CREATE PROCEDURE sp_update_salary(
 	IN EmpID CHAR(9),
     IN IncAmt DECIMAL(5, 0)
@@ -43,13 +43,13 @@ BEGIN
 	UPDATE employee
     SET Salary = Salary + IncAmt
     WHERE Ssn = EmpID;
-END $$$
+END $$
 DELIMITER ;
 
 CALL sp_update_salary('123456789', 5000);
 
 -- A stored procedure to do full refresh
-DELIMITER $$$
+DELIMITER $$
 CREATE PROCEDURE sp_refresh()
 BEGIN
 	TRUNCATE TABLE project_resources;
@@ -62,13 +62,13 @@ BEGIN
 	FROM Project JOIN Works_on
 	ON Pnumber = Pno
 	GROUP BY ProjectNumber, ProjectName, ProjectLocation;
-END $$$
+END $$
 DELIMITER ;
 
 CALL sp_refresh();
 
 -- A stored procedure that uses transaction management
-DELIMITER $$$
+DELIMITER $$
 CREATE PROCEDURE sp_update_salary_advanced(
 	IN EmpID CHAR(9),
     IN IncAmt DECIMAL(5, 0),
@@ -102,7 +102,7 @@ BEGIN
 		COMMIT;
 		SET success = 1;
 	END IF;
-END $$$
+END $$
 DELIMITER ;
 
 SET @outcome = 0;
